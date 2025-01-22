@@ -30,7 +30,6 @@ export function handlerForm() {
             }
         });
 
-        console.log("Form submission data:", submission);
 
         if (Object.keys(submission).length === 0) {
             alert("Please fill in the form before submitting.");
@@ -44,7 +43,7 @@ export function handlerForm() {
             alert("There was an error. Please try again later.");
         } else {
             alert("Thanks for contacting us!");
-            form.reset(); // Reset the form after successful submission
+            form.reset();
         }
     });
 }
