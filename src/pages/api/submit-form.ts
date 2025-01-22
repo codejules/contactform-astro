@@ -6,7 +6,7 @@ const supabaseUrl = 'https://gecwxpoujptxdyfhtywa.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlY3d4cG91anB0eGR5Zmh0eXdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc0NzUxNTksImV4cCI6MjA1MzA1MTE1OX0.nqdfVa-LgVUQwHzsZM4DSrefVnqHw86LX_f0-6GIoxY';
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-export async function post({ request }) {
+export async function post({ request }: { request: Request }) {
     const formData = await request.formData();
     const name = formData.get('name');
     const email = formData.get('email');
@@ -18,7 +18,7 @@ export async function post({ request }) {
     if (file) {
         const { data, error } = await supabase.storage
             .from('uploads')
-            .upload(`${Date.now()}-${file.name}`, file);
+            .upload(`${Date.now()}-${(file as File).name}`, file as File);
 
         if (error) {
             console.error('Error uploading file:', error);
