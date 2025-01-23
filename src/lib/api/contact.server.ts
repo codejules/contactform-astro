@@ -3,8 +3,8 @@ import type {ContactFormData, ApiResponse } from '../types/contact';
 
 const transporter = nodemailer.createTransport({
   host: import.meta.env.EMAIL_HOST,
-  port: 587, // 465 for secure
-  secure: false, // true for 465, false for other ports
+  port: 465, // 465 for secure
+  secure: true, // true for 465, false for other ports
   auth: {
     user: import.meta.env.EMAIL,
     pass: import.meta.env.EMAIL_PASS,
