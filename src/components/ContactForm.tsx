@@ -8,6 +8,7 @@ import { inputsConfig } from '../config/FormInputs';
 export default function ContactForm() {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
+    phone: '',
     email: '',
     message: '',
     botcheck: ''
@@ -30,7 +31,7 @@ export default function ContactForm() {
     setStatus(result);
 
     if (result.type === 'success') {
-      setFormData({ name: '', email: '', message: '', botcheck: '' });
+      setFormData({ name: '', phone: '', email: '', message: '', botcheck: '' });
     }
   };
 

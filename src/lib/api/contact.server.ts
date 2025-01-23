@@ -22,6 +22,8 @@ export const sendContactEmail = async (
 
     // Sanitización básica
     const sanitize = (text: string) => text.substring(0, 1000).replace(/[<>]/g, '');
+    const sanitizedPhone = formData.phone ? 
+    sanitize(formData.phone).replace(/[^\d+]/g, '') : '';
 
     await transporter.sendMail({
       from: `Formulario de Contacto <info@audioprobe.es>`,
@@ -31,6 +33,7 @@ export const sendContactEmail = async (
       html: `
         <h3>Formulario de contacto web Audioprobe</h3>
         <p><strong>Nombre:</strong> ${sanitize(formData.name)}</p>
+        <p><strong>Teléfono:</strong> ${sanitizedPhone}</p>
         <p><strong>Email:</strong> ${sanitize(formData.email)}</p>
         <p><strong>Mensaje:</strong></p>
         <p>${sanitize(formData.message)}</p>
