@@ -13,11 +13,11 @@ export default function ContactForm() {
     message: '',
     botcheck: ''
   });
-  
+
   const [status, setStatus] = useState<FormStatus>({ type: 'idle' });
 
   const handleChange = (
-    field: keyof ContactFormData, 
+    field: keyof ContactFormData,
     value: string
   ) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -26,7 +26,7 @@ export default function ContactForm() {
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
     setStatus({ type: 'submitting' });
-    
+
     const result = await handleContactSubmit(formData);
     setStatus(result);
 
@@ -39,32 +39,28 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
       {inputsConfig.map((input) => (
         <div key={input.id} class="mb-4">
-          <label 
-            htmlFor={input.id}
-            class="block text-sm font-medium text-gray-700"
-          >
-            {input.label}
-            {input.type === 'textarea' ? (
-              <textarea
-                id={input.id}
-                value={formData[input.name]}
-                onInput={(e) => handleChange(input.name, (e.target as HTMLTextAreaElement).value)}
-                required={input.required}
-                placeholder={input.placeholder}
-                class={input.className}
-              />
-            ) : (
-              <input
-                id={input.id}
-                type={input.type}
-                value={formData[input.name]}
-                onInput={(e) => handleChange(input.name, (e.target as HTMLInputElement).value)}
-                required={input.required}
-                placeholder={input.placeholder}
-                class={input.className}
-              />
+          {input.type === 'textarea' ? (
+            <textarea
+              id={input.id}
+              value={formData[input.name]}
+              onInput={(e) => handleChange(input.name, (e.target as HTMLTextAreaElement).value)}
+              required={input.required}
+              placeholder={input.placeholder}
+              class={input.className}
+              rows={input.rows || 4}
+            />
+          ) : (
+            <input
+              id={input.id}
+              type={input.type}
+              value={formData[input.name]}
+              onInput={(e) => handleChange(input.name, (e.target as HTMLInputElement).value)}
+              required={input.required}
+              placeholder={input.placeholder}
+              class={input.className}
+              pattern={input.pattern}
+            />
             )}
-          </label>
         </div>
       ))}
 
@@ -74,11 +70,11 @@ export default function ContactForm() {
         class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:bg-blue-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {status.type === 'submitting' && <UiSpinner />}
-        {status.type === 'submitting' 
-          ? 'Enviando...' 
-          : status.type === 'success' 
-          ? '✓ Mensaje Enviado' 
-          : 'Enviar'}
+        {status.type === 'submitting'
+          ? 'Enviando...'
+          : status.type === 'success'
+            ? '✓ Mensaje Enviado'
+            : 'Enviar'}
       </button>
 
       {status.type === 'error' && (
