@@ -7,8 +7,8 @@ const transporter = nodemailer.createTransport({
   port: 465, // 465 for secure
   secure: true, // true for 465, false for other ports
   auth: {
-    user: import.meta.env.EMAIL_USER,
-    pass: import.meta.env.EMAIL_PASS,
+    user: import.meta.env.VITE_EMAIL_USER,
+    pass: import.meta.env.VITE_EMAIL_PASS,
   }
 });
 
@@ -28,7 +28,7 @@ export const sendContactEmail = async (
 
     await transporter.sendMail({
       from: `Formulario de Contacto <info@audioprobe.es>`,
-      to: import.meta.env.EMAIL_USER,
+      to: import.meta.env.VITE_EMAIL_USER,
       subject: `Nuevo mensaje de ${sanitize(formData.name)}`,
       text: sanitize(formData.message),
       html: `
