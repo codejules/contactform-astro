@@ -1,9 +1,9 @@
 interface ImportMetaEnv {
-  readonly ASTRO_EMAIL_HOST: string;
-  readonly ASTRO_EMAIL_PORT: number;
-  readonly ASTRO_EMAIL_SECURE: boolean;
-  readonly ASTRO_EMAIL_USER: string;
-  readonly ASTRO_EMAIL_PASS: string;
+  readonly EMAIL_HOST: string;
+  readonly EMAIL_PORT: number;
+  readonly EMAIL_SECURE: boolean;
+  readonly EMAIL_USER: string;
+  readonly EMAIL_PASS: string;
 
   }
   
