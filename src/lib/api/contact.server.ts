@@ -1,12 +1,13 @@
 import nodemailer from 'nodemailer';
-import type {ContactFormData, ApiResponse } from '../types/contact';
+import type { ContactFormData, ApiResponse } from '../types/contact';
 
 const transporter = nodemailer.createTransport({
-  host: import.meta.env.EMAIL_HOST,
+  service: 'gmail',
+  host: 'smtp.gmail.com',
   port: 465, // 465 for secure
   secure: true, // true for 465, false for other ports
   auth: {
-    user: import.meta.env.EMAIL,
+    user: import.meta.env.EMAIL_USER,
     pass: import.meta.env.EMAIL_PASS,
   }
 });
@@ -22,12 +23,12 @@ export const sendContactEmail = async (
 
     // Sanitización básica
     const sanitize = (text: string) => text.substring(0, 1000).replace(/[<>]/g, '');
-    const sanitizedPhone = formData.phone ? 
-    sanitize(formData.phone).replace(/[^\d+]/g, '') : '';
+    const sanitizedPhone = formData.phone ?
+      sanitize(formData.phone).replace(/[^\d+]/g, '') : '';
 
     await transporter.sendMail({
       from: `Formulario de Contacto <info@audioprobe.es>`,
-      to: import.meta.env.EMAIL,
+      to: import.meta.env.EMAIL_USER,
       subject: `Nuevo mensaje de ${sanitize(formData.name)}`,
       text: sanitize(formData.message),
       html: `
