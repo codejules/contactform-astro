@@ -1,6 +1,8 @@
 interface ImportMetaEnv {
-    readonly EMAIL: string;
-    readonly EMAIL_PASS: string;
+  readonly VITE_EMAIL_HOST: string;
+  readonly VITE_EMAIL_USER: string;
+  readonly VITE_EMAIL_PASS: string;
+
   }
   
   interface ImportMeta {

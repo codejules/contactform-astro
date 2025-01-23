@@ -11,4 +11,7 @@ export default defineConfig({
   output: 'server',
   integrations: [tailwind(), preact()],
   adapter: netlify(),
+  vite: {
+    envPrefix: ['VITE_', 'SMTP_'], // Permitir múltiples prefijos
+  }
 });

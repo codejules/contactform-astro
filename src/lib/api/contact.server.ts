@@ -3,12 +3,12 @@ import type { ContactFormData, ApiResponse } from '../types/contact';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
-  host: 'smtp.gmail.com',
+  host: process.env.VITE_EMAIL_HOST,
   port: 465, // 465 for secure
   secure: true, // true for 465, false for other ports
   auth: {
-    user: import.meta.env.VITE_EMAIL_USER,
-    pass: import.meta.env.VITE_EMAIL_PASS,
+    user: process.env.VITE_EMAIL_USER,
+    pass: process.env.VITE_EMAIL_PASS,
   }
 });
 
@@ -28,7 +28,7 @@ export const sendContactEmail = async (
 
     await transporter.sendMail({
       from: `Formulario de Contacto <info@audioprobe.es>`,
-      to: import.meta.env.VITE_EMAIL_USER,
+      to: process.env.VITE_EMAIL_USER,
       subject: `Nuevo mensaje de ${sanitize(formData.name)}`,
       text: sanitize(formData.message),
       html: `
